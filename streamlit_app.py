@@ -52,7 +52,7 @@ if 'intro_v2' not in st.session_state:
     placeholder.empty()
     st.session_state.intro_v2 = True
 
-# 3. NASLOV I PODACI (Sve u jednom redu)
+# 3. NASLOV I PODACI
 st.markdown("<h1>🕵️ Snovi i Vizije 2</h1>", unsafe_allow_html=True)
 st.markdown("<h3 class='zeleni-tekst'>Strah od tišine by Dominic Chant</h3>", unsafe_allow_html=True)
 st.markdown("<p style='color:#00FF41; font-size: 1.2rem;'>📖 22.02.2026 | 🗝️ 33</p>", unsafe_allow_html=True)
@@ -95,7 +95,7 @@ vizije = {
     "33": "Čovjek stane pred prozor i briše prašinu... u ovome prozoru je nešto živo."
 }
 
-# 5. LOGIKA UNOSA S PLANOM B ZA ENTER
+# 5. LOGIKA UNOSA
 if 'v2_count' not in st.session_state:
     st.session_state.v2_count = 1
 
@@ -142,7 +142,7 @@ else:
             if not c2: st.error("Pogrešan odgovor o čišćenju boli.")
             if not c3: st.error("Pogrešan odgovor o Gabrielu.")
 
-            if st.session_state.get('final_win'):
+    if st.session_state.get('final_win'):
         st.markdown("---")
         st.markdown("<p style='color:white;'>Autor piše više od 25 godina mudrosti u bilježnice i ima ih preko 2000 i uskoro će biti u knjizi:</p>", unsafe_allow_html=True)
         st.markdown("<h3 class='zeleni-tekst'>Labave istine i čvrste sjene</h3>", unsafe_allow_html=True)
@@ -151,11 +151,11 @@ else:
             st.warning("📜 'Ja nisam kriv što netko vidi samo mrtva slova na papiru.'")
             
         st.markdown("---")
-        # Tri linka u jednom redu - pazite na uvlačenje svakog reda ispod!
+        # Tri linka u jednom redu
         col_l1, col_l2, col_l3 = st.columns(3)
         with col_l1:
-            st.markdown("[🔗 DOI Profil](https://doi.org)")
+            st.markdown("[🔗 DOI Profil](https://doi.org/10.5281/zenodo.18379898)")
         with col_l2:
-            st.markdown("[🔗 ORCID Profil](https://orcid.org)")
+            st.markdown("[🔗 ORCID Profil](https://orcid.org/0009-0005-7476-5238)")
         with col_l3:
             st.markdown("[🎮 Igraj PRVI DIO](https://dominicchantigraapppy.streamlit.app)")
