@@ -1,7 +1,7 @@
 import streamlit as st
 import time
 
-# 1. FINALNI STIL - BEZ SIVE BOJE
+# 1. FINALNI STIL - ZELENI ENTER I BIJELA SLOVA
 st.set_page_config(page_title="Snovi i Vizije 2", page_icon="🕵️")
 
 st.markdown("""
@@ -11,10 +11,8 @@ st.markdown("""
     /* NASLOV I PODNASLOV - ZELENO */
     h1, .zeleni-tekst { color: #00FF41 !important; text-shadow: 0 0 5px #00FF41; }
 
-    /* SVI TEKSTOVI VIZIJA I UPUTE - PRISILNO BIJELO (Nema više sive) */
-    .stAlert p, .stMarkdown p, .stWrite, h3, div[data-testid="stInputInstructions"], .stTextInput label { 
-        color: #FFFFFF !important; 
-    }
+    /* SVI TEKSTOVI VIZIJA I ODGOVORI - BIJELO */
+    .stAlert p, .stMarkdown p, .stWrite, h3, .bijeli-tekst { color: #FFFFFF !important; }
 
     /* UNOS (Što korisnik tipka) - BIJELO */
     input {
@@ -22,6 +20,12 @@ st.markdown("""
         -webkit-text-fill-color: #FFFFFF !important;
         background-color: #111111 !important;
         border: 2px solid #00FF41 !important;
+    }
+
+    /* PRESS ENTER - SADA JE ZELENO DA SE VIDI */
+    div[data-testid="stInputInstructions"] { 
+        color: #00FF41 !important; 
+        font-weight: bold !important;
     }
 
     /* GUMB: ZELEN S BIJELIM SLOVIMA */
@@ -44,16 +48,17 @@ if 'intro_v2' not in st.session_state:
     placeholder.empty()
     st.session_state.intro_v2 = True
 
-# 3. VRH STRANICE (Kalendar, Lokot i Naslov)
-col_left, col_right = st.columns([1, 1])
-with col_left:
-    st.markdown("<p style='font-size: 2rem; margin:0;'>📅</p>", unsafe_allow_html=True) # Slika kalendara
-with col_right:
-    st.markdown("<p style='font-size: 1.5rem; text-align: right; margin:0;'>🟡 🔒 33</p>", unsafe_allow_html=True) # Žuti lokot i broj 33
-
+# 3. NASLOV I LINIJA S KNJIGOM I KLJUČEM
 st.markdown("<h1>🕵️ Snovi i Vizije 2</h1>", unsafe_allow_html=True)
 st.markdown("<h3 class='zeleni-tekst'>Strah od tišine by Dominic Chant</h3>", unsafe_allow_html=True)
-st.markdown("<p style='color:#00FF41; font-size: 1.1rem; margin-top:-10px;'>📅 22.02.2026</p>", unsafe_allow_html=True)
+
+# Red s knjigom, datumom i ključem
+col_a, col_b = st.columns([2, 1])
+with col_a:
+    st.markdown("<p style='color:#00FF41; font-size: 1.1rem;'>📖 22.02.2026</p>", unsafe_allow_html=True)
+with col_b:
+    st.markdown("<p style='color:#00FF41; font-size: 1.1rem; text-align: right;'>🗝️ 33</p>", unsafe_allow_html=True)
+
 st.markdown("---")
 
 # 4. BAZA VIZIJA (1-33)
@@ -98,8 +103,8 @@ if 'v2_count' not in st.session_state:
     st.session_state.v2_count = 1
 
 if st.session_state.v2_count <= 33:
-    # BROJAČ (Zamijenjena spirala munjom ⚡)
-    st.markdown(f"<p style='color:#FFFFFF; font-size: 1.2rem;'>⚡ Ukupno vizija: 33 | Zabilježio si: {st.session_state.v2_count - 1}</p>", unsafe_allow_html=True)
+    # Brojač s munjom ⚡
+    st.markdown(f"<p style='color:#FFFFFF; font-size: 1.1rem;'>⚡ Ukupno vizija: 33 | Zabilježio si: {st.session_state.v2_count - 1}</p>", unsafe_allow_html=True)
     
     broj = st.text_input("Unesi broj vizije:", key="input_v2").strip()
     
@@ -111,8 +116,7 @@ if st.session_state.v2_count <= 33:
         elif int(broj) > st.session_state.v2_count:
             st.warning(f"Prvo moraš zabilježiti san broj {st.session_state.v2_count}.")
         elif int(broj) < st.session_state.v2_count:
-            st.markdown(f"<p style='color:white;'>Vizija {broj} je već zabilježena:</p>", unsafe_allow_html=True)
-            st.markdown(f"<p style='color:white; border-left: 2px solid #00FF41; padding-left:10px;'>{vizije[broj]}</p>", unsafe_allow_html=True)
+            st.markdown(f"<p style='color:white; border-left: 2px solid #00FF41; padding-left:10px;'>Vizija {broj} je već zabilježena: {vizije[broj]}</p>", unsafe_allow_html=True)
         else:
             st.markdown(f"<h3 style='color:white;'>VIZIJA {broj}</h3>", unsafe_allow_html=True)
             st.markdown(f"<p style='color:white; font-size:1.2rem; border:1px solid #00FF41; padding:10px;'>{vizije[broj]}</p>", unsafe_allow_html=True)
@@ -120,7 +124,7 @@ if st.session_state.v2_count <= 33:
                 st.session_state.v2_count += 1
                 st.rerun()
 else:
-    # 6. FINALNI DIO
+    # FINALNI DIO
     st.success("✅ SVE VIZIJE SU ZABILJEŽENE.")
     st.subheader("Ispit tišine")
     
@@ -143,9 +147,8 @@ else:
 
     if st.session_state.get('final_win'):
         st.markdown("---")
-        st.markdown("<p style='color:white;'>Autor piše više od 25 godina mudrosti u bilježnice...</p>", unsafe_allow_html=True)
+        st.markdown("<p style='color:white;'>Autor piše više od 25 godina mudrosti...</p>", unsafe_allow_html=True)
         st.markdown("<h3 class='zeleni-tekst'>Labave istine i čvrste sjene</h3>", unsafe_allow_html=True)
         if st.button("KLIKNI ZA MUDROST"):
             st.info("📜 'Ja nisam kriv što netko vidi samo mrtva slova na papiru.'")
         st.markdown("[🔗 DOI](https://doi.org) | [🔗 ORCID](https://orcid.org)")
-        st.markdown("[🎮 Igraj PRVI DIO](https://dominicchantigraapppy.streamlit.app)")
