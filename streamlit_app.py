@@ -148,4 +148,4 @@ else:
         st.markdown("<h3 class='zeleni-tekst'>Labave istine i čvrste sjene</h3>", unsafe_allow_html=True)
         if st.button("KLIKNI ZA MUDROST"):
             st.info("📜 'Ja nisam kriv što netko vidi samo mrtva slova na papiru.'")
-        st.markdown("[🔗 DOI](https://doi.org) | [🔗 ORCID](https://orcid.org)")
+        st.markdown("[🔗 DOI](https://doi.org/10.5281/zenodo.18379898) | [🔗 ORCID](https://orcid.org/0009-0005-7476-5238)")) | [🔗 Snovi i Vizije prvi dio](https://dominicchantigraapppy.streamlit.app/#snovi-i-vizije)")
