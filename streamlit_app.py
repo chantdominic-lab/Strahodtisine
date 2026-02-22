@@ -1,27 +1,22 @@
 import streamlit as st
 import time
 
-# 1. FINALNI STIL - IZBACIVANJE SIVE BOJE
+# 1. FINALNI STIL - NAJJAČA BOJA ZA ENTER I BIJELA SLOVA
 st.set_page_config(page_title="Snovi i Vizije 2", page_icon="🕵️")
 
 st.markdown("""
 <style>
     .stApp { background-color: #000000; color: #00FF41; font-family: 'Courier New', monospace; }
     
-    /* ZELENI NASLOVI */
+    /* NASLOV I PODNASLOV - ZELENO */
     h1, .zeleni-tekst { color: #00FF41 !important; text-shadow: 0 0 5px #00FF41; }
 
-    /* UNOS - NASLOV POLJA (Unesi broj vizije) - ZELENO */
-    .stTextInput label {
-        color: #00FF41 !important;
-        font-size: 1.1rem !important;
-        font-weight: bold !important;
-    }
-
-    /* PRESS ENTER - ZELENO I VIDLJIVO */
-    div[data-testid="stInputInstructions"] {
+    /* "PRESS ENTER" I "UNESI BROJ" - ŽARKO ZELENO (PRISILNO) */
+    div[data-testid="stInputInstructions"], .stTextInput label, label {
         color: #00FF41 !important;
         font-weight: bold !important;
+        opacity: 1 !important;
+        visibility: visible !important;
     }
 
     /* ŠTO KORISNIK TIPKA - BIJELO */
@@ -55,13 +50,16 @@ if 'intro_v2' not in st.session_state:
     placeholder.empty()
     st.session_state.intro_v2 = True
 
-# 3. NASLOV I POZICIONIRANJE (Ispod slova D)
+# 3. NASLOV I OZNAKE U ISTOM REDU
 st.markdown("<h1>🕵️ Snovi i Vizije 2</h1>", unsafe_allow_html=True)
 st.markdown("<h3 class='zeleni-tekst'>Strah od tišine by Dominic Chant</h3>", unsafe_allow_html=True)
 
-# Datum i Ključ jedan ispod drugog (Poravnato lijevo ispod imena)
-st.markdown("<p style='color:#00FF41; font-size: 1.1rem; margin:0;'>📖 22.02.2026</p>", unsafe_allow_html=True)
-st.markdown("<p style='color:#00FF41; font-size: 1.1rem; margin:0;'>🗝️ 33</p>", unsafe_allow_html=True)
+# Red s podacima (Knjiga lijevo, Ključ desno)
+col_li, col_de = st.columns([1, 1])
+with col_li:
+    st.markdown("<p style='color:#00FF41; font-size: 1.1rem; margin:0;'>📖 22.02.2026</p>", unsafe_allow_html=True)
+with col_de:
+    st.markdown("<p style='color:#00FF41; font-size: 1.1rem; text-align: right; margin:0;'>🗝️ 33</p>", unsafe_allow_html=True)
 
 st.markdown("---")
 
@@ -107,10 +105,9 @@ if 'v2_count' not in st.session_state:
     st.session_state.v2_count = 1
 
 if st.session_state.v2_count <= 33:
-    # Brojač munjom ⚡
     st.markdown(f"<p style='color:#FFFFFF; font-size: 1.1rem;'>⚡ Ukupno vizija: 33 | Zabilježio si: {st.session_state.v2_count - 1}</p>", unsafe_allow_html=True)
     
-    # Polje za unos (Sada zeleno i jasno)
+    # POLJE ZA UNOS
     broj = st.text_input("Unesi broj vizije:", key="input_v2").strip()
     
     if broj != "":
@@ -129,7 +126,7 @@ if st.session_state.v2_count <= 33:
                 st.session_state.v2_count += 1
                 st.rerun()
 else:
-    # FINALNI DIO
+    # 6. FINALNI DIO
     st.success("✅ SVE VIZIJE SU ZABILJEŽENE.")
     st.subheader("Ispit tišine")
     
