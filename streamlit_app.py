@@ -1,48 +1,60 @@
 import streamlit as st
 import time
 
-# 1. FINALNI STIL I POSTAVKE
+# 1. FINALNI STIL ZA MAKSIMALNU VIDLJIVOST
 st.set_page_config(page_title="Snovi i Vizije 2", page_icon="🕵️")
 
 st.markdown("""
 <style>
+    /* Pozadina */
     .stApp { background-color: #000000; color: #00FF41; font-family: 'Courier New', monospace; }
     
-    /* PRISILNA BIJELA SLOVA DOK SE TIPKA */
-    input[data-testid="stWidgetInput-RootElement"], input {
+    /* SVI TEKSTOVI VIZIJA I PORUKE - BIJELO */
+    .stAlert p, .stMarkdown p, .stWrite, h3 {
+        color: #FFFFFF !important;
+    }
+
+    /* UNOS (Što korisnik tipka) - BIJELO */
+    input {
         color: #FFFFFF !important;
         -webkit-text-fill-color: #FFFFFF !important;
         background-color: #111111 !important;
+        border: 2px solid #00FF41 !important;
     }
 
-    /* GUMB: ZELENA POZADINA, BIJELA SLOVA */
+    /* PRESS ENTER TO APPLY - BIJELO */
+    div[data-testid="stInputInstructions"] {
+        color: #FFFFFF !important;
+    }
+
+    /* GUMB: ZELEN S BIJELIM SLOVIMA */
     .stButton>button {
         background-color: #008F11 !important;
         color: #FFFFFF !important;
-        width: 100%;
-        font-weight: bold;
+        font-weight: bold !important;
         border: 1px solid #00FF41;
     }
-    
+
+    /* Boja labela iznad unosa */
     .stTextInput label { color: #00FF41 !important; }
 </style>
 """, unsafe_allow_html=True)
 
-# 2. ODBROJAVANJE S MIJENJANJEM RIJEČI
+# 2. ODBROJAVANJE
 if 'intro_v2' not in st.session_state:
     placeholder = st.empty()
     poruke = ["5... Tišina se širi", "4... Kiša natapa tlo", "3... Netko te promatra", "2... Tajne izlaze", "1... Strah od tišine", "0... Uđi"]
     for p in poruke:
         with placeholder.container():
-            st.markdown(f"<h1 style='text-align: center;'>{p}</h1>", unsafe_allow_html=True)
+            st.markdown(f"<h1 style='text-align: center; color:#00FF41;'>{p}</h1>", unsafe_allow_html=True)
             time.sleep(0.8)
     placeholder.empty()
     st.session_state.intro_v2 = True
 
-# 3. NASLOV
+# 3. NASLOV (Bez kalendara koji smeta)
 st.markdown("# 🕵️ Snovi i Vizije 2")
 st.markdown("### Strah od tišine by Dominic Chant")
-st.write("📅 22.02.2026 | 🌀 Vizija ukupno: 33")
+st.markdown("<p style='color:#00FF41;'>📅 22.02.2026 | 🌀 Vizija ukupno: 33</p>", unsafe_allow_html=True)
 st.markdown("---")
 
 # 4. BAZA VIZIJA (SVIH 33)
@@ -64,7 +76,7 @@ vizije = {
     "15": "Dolazi vrijeme kada na mrtva slova na papiru nitko neće obraćati pozornost.",
     "16": "Tajne u riječima i zagonetke kroz priče ostat će tamo gdje su upisane same za sebe jer nitko neće više upregnuti mozak i žrtvovati vrijeme da otkrije nešto.",
     "17": "Proći će puno godina ludog života prije nego svjetlost dođe i uzme svoje plodove probrane među trnjem.",
-    "18": "U jednoj noći svijet više neće biti isti i pojavit će se mnogi koji će pokušati kroz maglu ljudima objasniti da smo prevareni tako da nitko nije kriv.",
+    "18": "U jednoj noći svijet više neće biti isti i pojavit će se many koji će pokušati kroz maglu ljudima objasniti da smo prevareni tako da nitko nije kriv.",
     "19": "Sudbinu lopova više neće čistiti rešetke i zidovi zato što će doći dan kada sudbinu lopova budu odredili u jednoj ljudskoj sekundi.",
     "20": "Mnogi će pokušati iz početka daleko od svih ali neće znati da je cijeli svijet jedno oko koje u treptaju zna gdje su mu dijelovi tijela.",
     "21": "Jednog dana će ljudi živjeti s ljudima koji kada legnu spavati iz istog položaja se ustanu i nikad ne pričaju o svojim snovima kao da nisu ni spavali.",
@@ -74,7 +86,7 @@ vizije = {
     "25": "Pojavit će se strah i vladat će velika tišina ljudi će pažljivo birati što će pričati na glas i većina neće pričati.",
     "26": "Rijeke svijeta će početi presušivati i mnogi će misliti da je to posljednji znak među posljednjom generacijom ljudi i među ljudima će biti netko tko će shvatiti da rijeku pije velika žedna zvijer.",
     "27": "Vidio sam žurbu čovjeka koji pokušava tajno znanje skriti s lica zemlje.",
-    "28": "Pojavit će se živo željezo koje ima veliku ljepotu koju kada promatraš ne misliš na šarafe koje krije i ta ljepota će zaluditi mnoge da krenu u smjeru koji nije život.",
+    "28": "Pojavit će se živo željezo koje ima veliku ljepotu koju kada promatraš ne misliš na šarafe koje krije i ta ljepota će zaluditi many da krenu u smjeru koji nije život.",
     "29": "Doći će dan velike panike kada željezo svojom snagom bude pokušalo čovjeka osloboditi od zla.",
     "30": "Svijetom će letjeti uvjerenje da su ljudi postali prosvijetljeni kada su prihvatili novo učenje da je tijelo samo prazna čahura.",
     "31": "Jedan čovjek će kroz grad jahati konja i reći niste me slušali kao čovjeka sada možda budete slušali mojeg konja on nije čovjek.",
@@ -87,7 +99,7 @@ if 'v2_count' not in st.session_state:
     st.session_state.v2_count = 1
 
 if st.session_state.v2_count <= 33:
-    st.info(f"🔍 Trenutno tražimo Viziju broj: {st.session_state.v2_count}")
+    st.markdown(f"<p style='color:#00FF41;'>🔍 Trenutno tražimo Viziju broj: {st.session_state.v2_count}</p>", unsafe_allow_html=True)
     broj = st.text_input("Unesi broj vizije:", key="input_v2").strip()
     
     if broj != "":
@@ -98,15 +110,17 @@ if st.session_state.v2_count <= 33:
         elif int(broj) > st.session_state.v2_count:
             st.warning(f"Prvo moraš zabilježiti san broj {st.session_state.v2_count}.")
         elif int(broj) < st.session_state.v2_count:
-            st.success(f"San {broj} je već zabilježen: {vizije[broj]}")
+            # Prikaz već zabilježenog sna u BIJELOJ boji
+            st.markdown(f"<p style='color:white;'>San {broj} je već zabilježen: {vizije[broj]}</p>", unsafe_allow_html=True)
         else:
+            # Prikaz nove vizije u BIJELOJ boji
             st.markdown(f"### VIZIJA {broj}")
-            st.success(vizije[broj])
+            st.markdown(f"<p style='color:white; font-size:1.2rem; border:1px solid #00FF41; padding:10px;'>{vizije[broj]}</p>", unsafe_allow_html=True)
             if st.button("ZABILJEŽI SAN"):
                 st.session_state.v2_count += 1
                 st.rerun()
 else:
-    # 6. FINALNI ISPIT I AUTOR
+    # 6. FINALNI DIO
     st.success("✅ SVE VIZIJE SU ZABILJEŽENE.")
     st.subheader("Ispit tišine")
     
@@ -129,11 +143,11 @@ else:
 
     if st.session_state.get('final_win'):
         st.markdown("---")
-        st.write("Autor piše više od 25 godina mudrosti u bilježnice i ima ih preko 2000 i uskoro će biti u knjizi:")
+        st.markdown("<p style='color:white;'>Autor piše više od 25 godina mudrosti u bilježnice i ima ih preko 2000 i uskoro će biti u knjizi:</p>", unsafe_allow_html=True)
         st.markdown("### Labave istine i čvrste sjene")
         
         if st.button("KLIKNI OVDJE ZA MUDROST"):
-            st.warning("📜 'Ja nisam kriv što netko vidi samo mrtva slova na papiru.'")
+            st.info("📜 'Ja nisam kriv što netko vidi samo mrtva slova na papiru.'")
             
         st.markdown("---")
         st.markdown("[🔗 Autorski profil DOI](https://doi.org)")
