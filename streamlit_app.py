@@ -148,4 +148,15 @@ else:
         st.markdown("<h3 class='zeleni-tekst'>Labave istine i čvrste sjene</h3>", unsafe_allow_html=True)
         if st.button("KLIKNI ZA MUDROST"):
             st.info("📜 'Ja nisam kriv što netko vidi samo mrtva slova na papiru.'")
-        st.markdown("[🔗 DOI](https://doi.org/10.5281/zenodo.18379898) | [🔗 ORCID](https://orcid.org/0009-0005-7476-5238)")) | [🔗 Snovi i Vizije prvi dio](https://dominicchantigraapppy.streamlit.app/#snovi-i-vizije)")
+                st.markdown("---")
+        # Kreiramo tri stupca za linkove u istom redu
+        col_link1, col_link2, col_link3 = st.columns(3)
+        
+        with col_link1:
+            st.markdown("[🔗 DOI Profil](https://doi.org)")
+            
+        with col_link2:
+            st.markdown("[🔗 ORCID Profil](https://orcid.org)")
+            
+        with col_link3:
+            st.markdown("[🎮 Igraj PRVI DIO](https://dominicchantigraapppy.streamlit.app/)")
