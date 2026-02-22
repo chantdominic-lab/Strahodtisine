@@ -142,7 +142,7 @@ else:
             if not c2: st.error("Pogrešan odgovor o čišćenju boli.")
             if not c3: st.error("Pogrešan odgovor o Gabrielu.")
 
-        if st.session_state.get('final_win'):
+            if st.session_state.get('final_win'):
         st.markdown("---")
         st.markdown("<p style='color:white;'>Autor piše više od 25 godina mudrosti u bilježnice i ima ih preko 2000 i uskoro će biti u knjizi:</p>", unsafe_allow_html=True)
         st.markdown("<h3 class='zeleni-tekst'>Labave istine i čvrste sjene</h3>", unsafe_allow_html=True)
@@ -151,7 +151,7 @@ else:
             st.warning("📜 'Ja nisam kriv što netko vidi samo mrtva slova na papiru.'")
             
         st.markdown("---")
-        # Tri linka u jednom redu
+        # Tri linka u jednom redu - pazite na uvlačenje svakog reda ispod!
         col_l1, col_l2, col_l3 = st.columns(3)
         with col_l1:
             st.markdown("[🔗 DOI Profil](https://doi.org)")
