@@ -106,20 +106,27 @@ if st.session_state.v2_count <= 33:
     broj = st.text_input("Unesi broj vizije i klikni ENTER:", key="input_v2").strip()
     
     if broj != "":
-        if not broj.isdigit():
-            st.error("Unesi samo broj.")
-        elif int(broj) > 33:
-            st.error("Ovaj san ne postoji u arhivi.")
+    # Prvo provjeravamo postoji li taj broj u tvojoj bazi (od 1 do 33)
+        if broj not in vizije:
+            st.error("Ovaj san ne postoji u arhivi. Unesi broj od 1 do 33.")
+        
+        # Ako postoji, onda gledamo je li na redu
         elif int(broj) > st.session_state.v2_count:
             st.warning(f"Prvo moraš zabilježiti san broj {st.session_state.v2_count}.")
+            
+        # Ako je već prije zabilježen
         elif int(broj) < st.session_state.v2_count:
-            st.markdown(f"<p style='color:white;'>San {broj} je već zabilježen: {vizije[broj]}</p>", unsafe_allow_html=True)
+            st.markdown(f"<p style='color:white;'>San {broj} je već zabilježen:</p>", unsafe_allow_html=True)
+            st.markdown(f"<p style='color:white; border-left: 2px solid #00FF41; padding-left:10px;'>{vizije[broj]}</p>", unsafe_allow_html=True)
+            
+        # Ako je točno onaj koji je na redu
         else:
             st.markdown(f"### VIZIJA {broj}")
             st.markdown(f"<p style='color:white; font-size:1.2rem; border:1px solid #00FF41; padding:10px;'>{vizije[broj]}</p>", unsafe_allow_html=True)
             if st.button("ZABILJEŽI SAN"):
                 st.session_state.v2_count += 1
                 st.rerun()
+
 else:
     # FINALNI DIO
     st.success("✅ SVE VIZIJE SU ZABILJEŽENE.")
